@@ -1,25 +1,25 @@
-import logo from './logo.svg';
+import React, {useEffect, useState} from 'react';
 import './App.css';
+import getGifs from "./services/getGifs.js"
+
 
 function App() {
+    const [gifs, setGifs] = useState([])
+  useEffect(function (){
+    getGifs({ keyword: "berserk" }).then(gifs => setGifs(gifs))
+  }, [])
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+      <div className="App">
+        <section className="App-content">
+          {
+            gifs.map(function(singleG){
+              return <img src={singleG} />
+            })
+            }
+        </section>
+      </div>
+    );
 }
 
 export default App;
