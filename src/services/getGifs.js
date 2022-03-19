@@ -7,7 +7,12 @@ function getGifs ({keyword ='joker'} = {}) {
     .then( response =>{
         const {data = []} = response
         if(Array.isArray(data)){
-            const gifs = data.map( image => image.images.downsized_medium.url)
+            const gifs = data.map( image => {
+                //De esta forma consumims nuestra api: 
+                const { images, title, id } = image
+                const { url } =  images.downsized_medium
+                return { title, url, id };
+            })
             return gifs;
         }
     })
